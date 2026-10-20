@@ -1,0 +1,65 @@
+/* Hallmark · tokens · theme: Brutal
+ * axes: paper band light (oat, hue 80) / display-heavy (Bricolage Grotesque 800 + Noto Sans SC 900)
+ *       / accent warm (signal orange, ~hue 50) — moves only lightness & chroma, never hue
+ */
+:root {
+  /* colour — OKLCH only, tinted toward the warm oat anchor */
+  --color-paper:      oklch(96% 0.012 80);
+  --color-paper-2:    oklch(93% 0.014 80);
+  --color-paper-3:    oklch(89% 0.016 80);
+  --color-rule:       oklch(80% 0.012 80);
+  --color-rule-2:     oklch(64% 0.010 80);
+  --color-neutral:    oklch(46% 0.008 80);
+  --color-muted:      oklch(38% 0.008 70);
+  --color-ink:        oklch(18% 0.010 60);
+  --color-ink-2:      oklch(28% 0.010 60);
+  --color-accent:     #FC4C02;                /* signal orange — <3% of any viewport */
+  --color-accent-ink: oklch(15% 0.02 50);     /* text on accent fill, ≥ APCA Lc 60 */
+  --color-focus:      oklch(18% 0.010 60);    /* dark ring: ≥3:1 on paper, ink-slab, accent */
+  --color-error:      oklch(50% 0.18 26);
+  --color-success:    oklch(50% 0.13 155);
+
+  /* type — display / body / outlier (CJK companion rides inside each stack) */
+  --font-display: "Bricolage Grotesque", "Noto Sans SC", sans-serif;
+  --font-body:    "Geist", "Noto Sans SC", sans-serif;
+  --font-outlier: "Geist Mono", "Noto Sans SC", monospace;
+
+  /* scale — major third (1.25) from a 16px body; lean size set: sm→display */
+  --text-sm:  0.8rem;
+  --text-base: 1rem;
+  --text-md:  1.25rem;
+  --text-lg:  1.5625rem;
+  --text-2xl: 2.4414rem;
+  --text-display:    clamp(3.25rem, 5.2vw + 1.8rem, 6rem);  /* Brutal cap: 6rem */
+
+  /* space — 4pt scale, named by role */
+  --space-3xs: 0.125rem;
+  --space-2xs: 0.25rem;
+  --space-xs:  0.5rem;
+  --space-sm:  0.75rem;
+  --space-md:  1rem;
+  --space-lg:  1.5rem;
+  --space-xl:  2.5rem;
+  --space-2xl: 4rem;
+  --space-3xl: 6rem;
+  --space-4xl: 9rem;
+
+  /* motion — Brutal: 0.75× duration, sharper ease, no spring */
+  --dur-micro: 90ms;
+  --dur-short: 165ms;
+  --dur-long:  315ms;
+  --dur-marquee: 52s;
+  --dur-spin: 700ms;            /* functional loader loop */
+  --stagger-step: 70ms;         /* entrance stagger unit (≤500ms cap) */
+  --ease-out:    cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in:     cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+
+  /* chrome */
+  --rule-thick: 4px;
+  --page-gutter: clamp(1rem, 4vw, 3rem);
+  --z-base: 1;
+  --z-raised: 10;
+  --z-sticky: 200;
+  --z-toast: 500;
+}

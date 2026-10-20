@@ -1,0 +1,385 @@
+/* Hallmark · genre: editorial (loud) · macrostructure: Marquee Hero · tone: brutal
+ * theme: Brutal · enrichment: none (typography only) · nav: N9 · footer: Ft4
+ * brief: HOTTYPE · AI 传单机落地页（AI 应用 · 受众 创意人群 · 用例 下载/试用）
+ * date: 2026-10-20 · pre-emit critique: P4 H4 E5 S4 R4 V5
+ * results: slop 58/58 pass · nav N9 · footer Ft4 · contrast pass (40–41) · honest pass (46)
+ *          · chrome pass (47) · tokens pass (48) · responsive pass (49) · icons pass (30)
+ *          · mobile pass (34, 49, 50–57) — verified at 320/375/414/768/1280×800 via iframe audit
+ */
+
+/* ---------- base ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { overflow-x: clip; scroll-behavior: smooth; }
+body {
+  overflow-x: clip;                    /* gate 34 — clip, never hidden */
+  margin: 0;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: var(--text-base);
+  line-height: 1.6;
+}
+
+:focus { outline: none; }              /* replaced instantly below — never animated */
+:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 3px;
+}
+
+h1, h2, h3 { margin: 0; font-family: var(--font-display); font-style: normal; }
+p { margin: 0; }
+a { color: inherit; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 150ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 150ms !important;
+  }
+  html { scroll-behavior: auto; }
+}
+
+/* ---------- nav · N9 edge-aligned minimal ---------- */
+.nav-edge {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-md) var(--page-gutter);
+}
+.wordmark {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--text-md);
+  letter-spacing: -0.02em;
+  min-height: 44px;                    /* nav anchor inherits the hit-target floor */
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color var(--dur-short) var(--ease-out), transform var(--dur-micro) var(--ease-out);
+}
+@media (hover: hover) {
+  .wordmark:hover { color: var(--color-ink-2); }   /* one signal: colour shift */
+}
+.wordmark:active { transform: translateY(1px); }
+.wordmark em {
+  font-style: normal;
+  font-weight: 400;
+  font-size: var(--text-sm);
+  color: var(--color-neutral);
+  letter-spacing: 0.08em;
+}
+
+/* ---------- the button · C1 slab, all 8 states ---------- */
+.btn-chip {
+  font: inherit;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  min-height: 44px;                    /* hit-target floor */
+  padding: var(--space-sm) var(--space-md);
+  border: 2px solid var(--color-ink);
+  border-radius: 0;                    /* slab — brutal */
+  background: var(--color-paper);
+  color: var(--color-ink);
+  cursor: pointer;
+  white-space: nowrap;                 /* gate 49 — affordances never wrap */
+  text-decoration: none;
+  transition:
+    background-color var(--dur-short) var(--ease-out),
+    color var(--dur-short) var(--ease-out),
+    transform var(--dur-micro) var(--ease-out);
+}
+@media (hover: hover) {
+  .btn-chip:hover {
+    background: var(--color-ink);
+    color: var(--color-paper);
+    transform: translateY(-1.5px);
+  }
+}
+.btn-chip:active { transform: translateY(2px); }  /* the slab presses in */
+.btn-chip:disabled,
+.btn-chip[aria-disabled="true"] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.btn-chip[data-state="loading"] { cursor: wait; }
+.btn-chip[data-state="loading"] .spin {
+  display: inline-block;
+  width: 1em; height: 1em;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: spin var(--dur-spin) linear infinite;  /* functional loader — linear allowed */
+}
+.spin { display: none; }
+@keyframes spin { to { transform: rotate(1turn); } }
+.btn-chip[data-state="success"] {
+  border-color: var(--color-success);
+  color: var(--color-success);
+}
+.btn-chip[data-state="error"] {
+  border-color: var(--color-error);
+  color: var(--color-error);
+}
+
+/* ---------- C3 typographic link ---------- */
+.typo-link {
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  min-height: 44px;                    /* hit-target floor for a standalone CTA link */
+  white-space: nowrap;                 /* gate 49 */
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 2px;          /* gate 35: 1–2px offset, never deeper */
+  transition:
+    color var(--dur-short) var(--ease-out),
+    transform var(--dur-micro) var(--ease-out);
+}
+@media (hover: hover) {
+  .typo-link:hover { color: var(--color-accent); }  /* one signal: colour shift */
+}
+.typo-link:active { transform: translateY(2px); }
+
+/* ---------- hero · H1 Marquee — the fold IS the statement ---------- */
+.hero {
+  min-height: 80dvh;
+  display: grid;
+  align-content: end;                  /* statement sits on the fold's floor */
+  padding: var(--space-xl) var(--page-gutter) var(--space-3xl);   /* gate 44a: end ≥ 1.3× start */
+}
+.display {
+  font-weight: 800;
+  font-size: var(--text-display);      /* Brutal cap: 6rem */
+  line-height: 1.06;                   /* CJK glyphs keep descender room */
+  letter-spacing: -0.015em;
+  min-width: 0;
+  overflow-wrap: anywhere;             /* gate 51 — wrap inside long words */
+}
+
+/* ---------- ticker · the hard colour change between hero and body ---------- */
+.ticker {
+  background: var(--color-ink);
+  color: var(--color-paper);           /* surface flip sets its own colour */
+  overflow: hidden;
+  padding: var(--space-sm) 0;
+}
+.ticker__track {
+  display: flex;                       /* no gap — the seg's trailing padding IS the loop step */
+  width: max-content;
+  animation: tick var(--dur-marquee) linear infinite;  /* continuous loop */
+}
+.ticker__seg {
+  display: flex;
+  gap: var(--space-lg);
+  align-items: center;
+  padding-inline-end: var(--space-lg); /* trailing gap makes translateX(-50%) seamless */
+  font-family: var(--font-body);       /* outlier discipline: mono stays out of the band */
+  font-weight: 600;
+  font-size: var(--text-base);
+  letter-spacing: 0.14em;              /* label register */
+  white-space: nowrap;
+}
+.ticker__dot { color: var(--color-paper-3); }
+@keyframes tick { to { transform: translateX(-50%); } }
+.ticker:hover .ticker__track { animation-play-state: paused; }
+@media (prefers-reduced-motion: reduce) {
+  .ticker__track { animation: none; transform: none; }
+}
+
+/* ---------- shared section head ---------- */
+.sec-head {
+  font-weight: 800;
+  font-size: var(--text-2xl);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+/* ---------- intro · S2 hanging head + asymmetric cta ---------- */
+.intro {
+  padding: var(--space-3xl) var(--page-gutter) var(--space-2xl);
+}
+.head-hang { padding-block: 0 var(--space-xl); }   /* S2 — floats, no rule */
+.intro__wrap {
+  display: grid;
+  gap: var(--space-xl) var(--space-lg);
+}
+.lede {
+  max-width: 48ch;
+  font-size: var(--text-md);
+  line-height: 1.55;
+  color: var(--color-ink-2);
+}
+.fine {
+  font-size: var(--text-sm);
+  color: var(--color-neutral);
+}
+.cta-row {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-md);
+}
+
+/* ---------- how · F4 step sequence ---------- */
+.how {
+  padding: var(--space-2xl) var(--page-gutter) var(--space-3xl);
+}
+.steps {
+  list-style: none;
+  margin: var(--space-xl) 0 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space-xl);
+}
+.steps li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);   /* gate 54: number stacks above heading — single column */
+  gap: var(--space-xs);
+  border-left: var(--rule-thick) solid var(--color-ink);
+  padding-left: var(--space-md);
+}
+.stage {
+  font-family: var(--font-outlier);    /* outlier slot 2 of 2 (numerals) */
+  font-size: var(--text-lg);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.2;
+}
+.steps h3 { font-weight: 800; font-size: var(--text-lg); margin: 0 0 var(--space-2xs); }
+.steps p { max-width: 56ch; color: var(--color-ink-2); }
+
+/* ---------- spec · F3 tabular sheet as definition rows ---------- */
+.spec {
+  padding: var(--space-3xl) var(--page-gutter);
+  background: var(--color-paper-2);    /* quiet surface shift, not a card */
+}
+.spec h2 { margin-bottom: var(--space-xl); }
+.spec dl { margin: 0; max-width: 64rem; }
+.spec .row {
+  display: grid;
+  grid-template-columns: minmax(0, 9rem) minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--space-xs) var(--space-lg);
+  padding: var(--space-md) 0;
+  border-bottom: 1px solid var(--color-rule);
+}
+.spec dl > .row:first-child { border-top: 2px solid var(--color-ink); }
+.spec dt { font-weight: 600; }
+.spec dd { margin: 0; min-width: 0; overflow-wrap: anywhere; }
+.spec dd.tnum { font-variant-numeric: tabular-nums; }
+.spec dd.footnote { color: var(--color-neutral); font-size: var(--text-sm); }
+
+/* ---------- closing · ink slab (closing line, no CTA — the bar owns it) ---------- */
+.closing {
+  background: var(--color-ink);
+  color: var(--color-paper);           /* surface flip sets its own colour */
+  padding: var(--space-3xl) var(--page-gutter);
+}
+.closing p {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--text-2xl);
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+  max-width: 22ch;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.closing .closing-side {
+  margin-block-start: var(--space-md);
+  font-family: var(--font-body);       /* keep the outlier at ≤2 slots */
+  font-weight: 600;
+  font-size: var(--text-sm);
+  letter-spacing: 0.1em;
+  color: var(--color-paper-3);
+  max-width: none;
+}
+
+/* ---------- footer · Ft4 dense colophon ---------- */
+/* outlier register slot 1 of 1 — the colophon is the page's only mono block */
+.foot-dense {
+  padding: var(--space-2xl) var(--page-gutter) calc(var(--space-3xl) + var(--space-2xl));
+  font-family: var(--font-outlier);
+  font-size: var(--text-sm);
+  line-height: 1.65;
+  color: var(--color-ink-2);
+}
+.foot-dense .hush { color: var(--color-neutral); }
+
+/* ---------- sticky bottom bar · C4, always reachable ---------- */
+.cta-sticky {
+  position: fixed;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: var(--z-sticky);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-sm) var(--page-gutter) max(var(--space-sm), env(safe-area-inset-bottom));
+  background: var(--color-paper);
+  border-top: 2px solid var(--color-ink);
+}
+.cta-sticky .promise {
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+  min-width: 0;
+}
+
+/* ---------- one-shot entrance (motion primitive 3 of 3 — intro only) ----------
+ * hidden state only applies when JS is present (html.js) — no-JS stays fully visible */
+html.js .reveal {
+  opacity: 0;
+  transform: translateY(8px);
+  transition:
+    opacity var(--dur-long) var(--ease-out),
+    transform var(--dur-long) var(--ease-out);
+  transition-delay: calc(var(--i, 0) * var(--stagger-step));
+  min-width: 0;
+}
+html.js .reveal.is-in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  html.js .reveal { transform: none; transition: opacity 150ms linear; }
+}
+
+/* ---------- responsive · mobile-first ---------- */
+@media (min-width: 40rem) {
+  .intro__wrap {
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+    align-items: end;
+  }
+  .cta-row {
+    border-left: 1px solid var(--color-rule);
+    padding-left: var(--space-lg);
+  }
+  .closing p { font-size: var(--text-2xl); max-width: 24ch; }
+}
+@media (min-width: 60rem) {
+  .intro { padding-block: var(--space-4xl) var(--space-3xl); }
+  .steps { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+}
+
+/* ---------- collapses ≤ 40rem ---------- */
+@media (max-width: 40rem) {
+  .hero { min-height: 74dvh; }
+  .spec .row {
+    grid-template-columns: minmax(0, 1fr);  /* gate 50 — minmax(0,…) everywhere */
+  }
+  .cta-sticky .promise { display: none; }   /* collapse the row, never the labels */
+  .closing { padding-block: var(--space-2xl); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-chip[data-state="loading"] .spin {
+    animation-duration: 900ms !important;         /* functional loaders still run */
+    animation-iteration-count: infinite !important;
+  }
+}
