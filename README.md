@@ -2,8 +2,6 @@
 
 > 一句话进去，一张传单出来。 —— 一台 AI 传单机的演示落地页
 
-**源码仓库：https://github.com/DRGJU/hottype**
-
 ## 这是什么
 
 HOTTYPE 是一个虚构演示品牌（Hallmark 技能产出的设计样本）：把一句想法接进印刷版式，

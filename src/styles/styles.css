@@ -320,12 +320,16 @@ a { color: inherit; }
   margin-block-start: var(--space-xs);
   white-space: nowrap;                 /* gate 49 — affordances never wrap */
   color: var(--color-ink);
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 2px;          /* gate 35 */
+  text-decoration: none;               /* icon carries the affordance, not an underline */
   transition:
     color var(--dur-short) var(--ease-out),
     transform var(--dur-micro) var(--ease-out);
+}
+.foot-link svg {
+  display: block;
+  width: 1.5rem;                       /* GitHub mark, fills via currentColor on hover */
+  height: 1.5rem;
+  fill: currentColor;
 }
 @media (hover: hover) {
   .foot-link:hover { color: var(--color-accent); }   /* one signal: colour shift */
