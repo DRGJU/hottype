@@ -1,0 +1,21 @@
+---
+// hard colour change: inverted ticker band between hero and body
+const items = ['传单 FLYER', '海报 POSTER', '贴纸 STICKER', '小志 ZINE', '票券 TICKET', '单页 SINGLE'];
+---
+
+<div class="ticker" aria-hidden="true">
+  <div class="ticker__track">
+    {
+      [0, 1].map(() => (
+        <p class="ticker__seg">
+          {items.map((label) => (
+            <>
+              <span>{label}</span>
+              <span class="ticker__dot">●</span>
+            </>
+          ))}
+        </p>
+      ))
+    }
+  </div>
+</div>

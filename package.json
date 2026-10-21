@@ -1,0 +1,19 @@
+{
+  "name": "hottype",
+  "version": "1.0.0",
+  "description": "HOTTYPE · 热字印刷 — AI 传单机落地页（Hallmark · Marquee Hero · Brutal）",
+  "type": "module",
+  "homepage": "https://github.com/DRGJU/hottype#readme",
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@ssh.github.com:443/DRGJU/hottype.git"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "astro": "^7.4.1"
+  }
+}

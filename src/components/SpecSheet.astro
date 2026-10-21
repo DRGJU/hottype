@@ -1,0 +1,25 @@
+---
+// F3 · tabular sheet as definition rows — name / value / footnote, hairline rules
+const rows = [
+  { dt: '输入格式', value: '半句自然语言', foot: '中英文皆可，无需模板' },
+  { dt: '版式引擎', value: '12 套内置版式 · 3 族', foot: '网格族 / 报刊族 / 海报族' },
+  { dt: '输出格式', value: 'PDF · PNG · HTML', foot: '300\u00A0dpi · 预留 3\u00A0mm 出血' },
+  { dt: '运行平台', value: 'macOS 12+ · Windows 10+ · 浏览器', foot: '断网也能排' },
+  { dt: '账号与账单', value: '都不需要', foot: '试用不限时，数据只出本机' },
+];
+---
+
+<section class="spec" id="spec">
+  <h2 class="sec-head">规格单。</h2>
+  <dl>
+    {
+      rows.map((r) => (
+        <div class="row">
+          <dt>{r.dt}</dt>
+          <dd>{r.value}</dd>
+          <dd class="footnote">{r.foot}</dd>
+        </div>
+      ))
+    }
+  </dl>
+</section>

@@ -1,0 +1,110 @@
+---
+import Layout from '../layouts/Layout.astro';
+import NavEdge from '../components/NavEdge.astro';
+import HeroMarquee from '../components/HeroMarquee.astro';
+import TickerBand from '../components/TickerBand.astro';
+import Intro from '../components/Intro.astro';
+import HowSteps from '../components/HowSteps.astro';
+import SpecSheet from '../components/SpecSheet.astro';
+import ClosingInk from '../components/ClosingInk.astro';
+import FooterColophon from '../components/FooterColophon.astro';
+import StickyBar from '../components/StickyBar.astro';
+---
+
+<Layout title="HOTTYPE · 一句话进去，一张传单出来。">
+  <NavEdge />
+  <main>
+    <HeroMarquee />
+    <TickerBand />
+    <Intro />
+    <HowSteps />
+    <SpecSheet />
+    <ClosingInk />
+  </main>
+  <FooterColophon />
+  <StickyBar />
+</Layout>
+
+<script>
+  // ---------- CTA copy-to-state pattern: the label change IS the feedback (no toast) ----------
+  const chips = [...document.querySelectorAll('[data-action="download"]')] as HTMLButtonElement[];
+  const live = document.getElementById('dl-live');
+  const liveInit = live?.textContent ?? '';
+  chips.forEach((c) => {
+    c.dataset.label = c.querySelector('.chip-label')?.textContent ?? '';
+  });
+  let busy = false;
+
+  const setAll = (state: string | null, label?: string, msg?: string) => {
+    chips.forEach((c) => {
+      if (state) c.dataset.state = state;
+      else delete c.dataset.state;
+      const slot = c.querySelector('.chip-label');
+      if (slot) slot.textContent = label || c.dataset.label;
+      c.disabled = state === 'loading';
+    });
+    if (live) live.textContent = msg ?? liveInit;
+  };
+
+  chips.forEach((btn) =>
+    btn.addEventListener('click', () => {
+      if (busy) return;
+      busy = true;
+      setAll('loading', '打包中…', '……');
+      setTimeout(() => {
+        try {
+          const txt = [
+            'HOTTYPE · 热字印刷',
+            'v1.0.0-demo（演示包）',
+            '────────────',
+            '1. 你刚才在落地页点的按钮是「取一版」。',
+            '2. 这台传单机目前只有这一页是真的——其余等你来写。',
+            '3. 字是挑过的：Bricolage Grotesque + Geist + Noto Sans SC + Geist Mono。',
+            '4. 版式：Marquee Hero · Brutal · 信号橙，不到 3%。',
+            '5. 框架：Astro —— 源码：https://github.com/DRGJU/hottype',
+            '',
+            '2026-10-20',
+          ].join('\n');
+          const url = URL.createObjectURL(new Blob([txt], { type: 'text/plain;charset=utf-8' }));
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = 'HOTTYPE-README.txt';
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+          setTimeout(() => URL.revokeObjectURL(url), 2000);
+          setAll('success', '已进下载列表 ✓', '说明文件已进下载列表 ✓');
+          setTimeout(() => {
+            setAll(null);
+            busy = false;
+          }, 2500);
+        } catch {
+          setAll('error', '下载没成，再试', '下载没成 —— 再试一次。');
+          setTimeout(() => {
+            setAll(null);
+            busy = false;
+          }, 2500);
+        }
+      }, 350); // spinner minimum visible duration
+    }),
+  );
+
+  // ---------- One orchestrated entrance — intro only; everything else just is there ----------
+  const revealables = document.querySelectorAll('.reveal');
+  if (!('IntersectionObserver' in window)) {
+    revealables.forEach((el) => el.classList.add('is-in'));
+  } else {
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add('is-in');
+            io.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0.2 },
+    );
+    revealables.forEach((el) => io.observe(el));
+  }
+</script>

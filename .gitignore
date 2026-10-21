@@ -1,0 +1,7 @@
+# build artifacts
+node_modules/
+dist/
+.astro/
+
+# OS noise
+.DS_Store

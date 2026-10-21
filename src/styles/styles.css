@@ -313,6 +313,24 @@ a { color: inherit; }
   color: var(--color-ink-2);
 }
 .foot-dense .hush { color: var(--color-neutral); }
+.foot-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;                    /* hit-target floor */
+  margin-block-start: var(--space-xs);
+  white-space: nowrap;                 /* gate 49 — affordances never wrap */
+  color: var(--color-ink);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;          /* gate 35 */
+  transition:
+    color var(--dur-short) var(--ease-out),
+    transform var(--dur-micro) var(--ease-out);
+}
+@media (hover: hover) {
+  .foot-link:hover { color: var(--color-accent); }   /* one signal: colour shift */
+}
+.foot-link:active { transform: translateY(1px); }
 
 /* ---------- sticky bottom bar · C4, always reachable ---------- */
 .cta-sticky {

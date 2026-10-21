@@ -1,0 +1,37 @@
+---
+// F4 · step sequence — genuinely ordinal stages, stacked single-column (gate 54)
+const steps = [
+  {
+    stage: '1.0',
+    title: '写半句。',
+    body: '「深夜书店 · 迁址酬宾 · 周末九折。」就这么点字数，不用想排版，交给引擎。',
+  },
+  {
+    stage: '2.0',
+    title: '引擎排字。',
+    body: '版式库按内容挑一族：字距、行高、纸边全部先定死——你可以改字，但版不许乱动。这正是印刷的老规矩。',
+  },
+  {
+    stage: '3.0',
+    title: '挑纸出稿。',
+    body: 'PDF、PNG 或网页版式，300\u00A0dpi、预留出血 —— 文件交给打印店，不抬杠。',
+  },
+];
+---
+
+<section class="how" id="how">
+  <h2 class="sec-head">三步，从半句话到出稿。</h2>
+  <ol class="steps">
+    {
+      steps.map((s) => (
+        <li>
+          <span class="stage">{s.stage}</span>
+          <div>
+            <h3>{s.title}</h3>
+            <p>{s.body}</p>
+          </div>
+        </li>
+      ))
+    }
+  </ol>
+</section>
